@@ -2,6 +2,8 @@ import streamlit as st
 import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from datetime import datetime
+from pathlib import Path
+
 
 st.set_page_config(page_title="Transcript Summary Generator", page_icon="📝", layout="centered")
 
@@ -11,8 +13,10 @@ st.write("Upload a transcript and generate a detailed summary with key points")
 # --- Function to load the prompt (cached) ---
 @st.cache_resource
 def load_prompt():
+    LOCAL_PROMPT_PATH = Path(__file__).parent / "prompt.md"
+
     try:
-        with open("prompt.md", "r") as f:
+        with open(LOCAL_PROMPT_PATH, "r") as f:
             return f.read()
     except FileNotFoundError:
         st.error("❌ prompt.md file not found!")
@@ -35,7 +39,7 @@ quantization_config = BitsAndBytesConfig(
 # This function runs only ONCE when the app starts.
 @st.cache_resource
 def get_model_and_tokenizer(model_name, q_config):
-    st.info(f"📥 Loading {model_name} model with 4-bit quantization... (This happens only once)")
+    st.info(f" Loading {model_name} model with 4-bit quantization... (This happens only once)")
     
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(
