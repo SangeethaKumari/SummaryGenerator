@@ -1,20 +1,16 @@
-📝 Transcript Summary Generator
+📝 # Transcript Summary Generator #
 
 A Streamlit-based web application that allows you to upload a text transcript and automatically generate a detailed summary using a quantized LLM (Zephyr-7B-Beta with 4-bit quantization).
 
 This tool is useful for summarizing:
 
 Meetings
-
 Interviews
-
 Lectures
-
 YouTube transcripts
-
 Long documents
 
-🚀 Features
+🚀 #Features#
 
 📄 Upload .txt transcript files
 
